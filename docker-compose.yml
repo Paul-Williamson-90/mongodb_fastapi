@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  app:
+    container_name: app
+    build: 
+      context: .
+      dockerfile: containers/Dockerfile.app
+    ports:
+      - 8000:80
+    depends_on:
+      - db
+    networks:
+      - mynetwork
+  db:
+    container_name: db
+    build:
+      context: .
+      dockerfile: containers/Dockerfile.mongo
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - mynetwork
+networks:
+  mynetwork:
+volumes:
+  mongodb_data:
